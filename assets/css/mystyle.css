@@ -1,0 +1,46 @@
+
+QPushButton:hover
+{
+	border-style: solid;
+   	background-color:#bbdefb;
+
+}
+
+QPushButton:pressed
+{
+	 	background-color:#0069c0;
+}
+
+
+
+/*Style para el boton agregar */
+QPushButton
+{	
+	height: 2em;
+ 	border-style: solid;
+	border-width: 2px;
+ 	border-color: #0069c0;
+	font-weight: bold;
+}
+
+QPushButton:hover
+{
+   	background-color:#0069c0;
+	color:white;
+}
+
+/* Style para el boton cancelar */
+QPushButton
+{	
+	height: 2em;
+ 	border-style: solid;
+	border-width: 2px;
+ 	border-color: grey;
+	font-weight: bold;
+}
+
+QPushButton:hover
+{
+   	background-color:grey;
+	color:white;
+}
