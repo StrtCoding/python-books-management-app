@@ -30,14 +30,17 @@ class NewBookWindow(QWidget, NewBookForm):
             print("El campo titulo es obligatorio")
             errors_count += 1
         if category == "":
-            print("El campo cateogria es obligatorio")
+            print("El campo categoria es obligatorio")
+            errors_count +=1
+        if page_qty == 0:
+            print("El campo cantidad de paginas es obligatorio")
             errors_count +=1
         if path == "":
             print("Debe seleccionar un libro")
             errors_count +=1
         
-        if errors_count == 0:
-            return True
+        return (errors_count == 0)
+            
         
     def add_book(self):
         title = self.titleLineEdit.text()
@@ -49,13 +52,9 @@ class NewBookWindow(QWidget, NewBookForm):
         if self.check_inputs():
             new_path = shutil.copy(path, "book_files")
             data = (title, category, page_qty, new_path, description)
-            result = insert_book(data)
-            if result[0]:
+            if insert_book(data):
                 self.clean_inputs()
-                book_id = result[1]
-                if book_id > 0:
-                    book = select_book_by_id(book_id)
-                    self.parent.add_new_book_row(book)
+                self.parent.refresh_table_from_child_window()
             else:
                 self.filePathLineEdit.setText(new_path)
                 self.undo()
