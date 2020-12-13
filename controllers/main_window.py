@@ -18,6 +18,10 @@ class ListBookWindow(QWidget, ListBookForm):
         self.open_book_button.clicked.connect(self.open_book)
         self.searchButton.clicked.connect(self.search)
         self.delete_book_button.clicked.connect(self.remove_book)
+    
+    def refresh_table_from_child_window(self):
+        data = select_all_book()
+        self.populate_table(data)
         
     def add_new_book_row(self, data):
         qty_rows = self.listBooksTable.rowCount()
