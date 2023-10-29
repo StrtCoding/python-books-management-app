@@ -1,7 +1,10 @@
-from PySide2.QtWidgets import QWidget, QTableWidgetItem, QAbstractItemView
+import os
+
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QAbstractItemView
+
 from views.main_window import ListBookForm
 from db.books import select_all_books, select_book_by_title, select_book_by_category, delete_book
-import os
+
 
 class ListBookWindow(QWidget, ListBookForm):
 
@@ -20,7 +23,7 @@ class ListBookWindow(QWidget, ListBookForm):
         self.delete_book_button.clicked.connect(self.remove_book)
     
     def refresh_table_from_child_window(self):
-        data = select_all_book()
+        data = select_all_books()
         self.populate_table(data)
         
     def add_new_book_row(self, data):
@@ -75,7 +78,8 @@ class ListBookWindow(QWidget, ListBookForm):
         self.records_qty()
 
     def table_config(self):
-        column_headers = ("Libro ID", "Titulo", "Categoria", "Cantidad de Paginas", "Cantidad de Paginas Leidas", "Path", "Descripcion")
+        column_headers = ("Libro ID", "Titulo", "Categoria", "Cantidad de Paginas",
+                          "Cantidad de Paginas Leidas", "Path", "Descripcion")
         self.listBooksTable.setColumnCount(len(column_headers))
         self.listBooksTable.setHorizontalHeaderLabels(column_headers)
 
@@ -83,6 +87,9 @@ class ListBookWindow(QWidget, ListBookForm):
 
 
     def populate_table(self, data):
+        if data is None:
+            data = []
+        
         self.listBooksTable.setRowCount(len(data))
 
         for (index_row, row) in enumerate(data):
