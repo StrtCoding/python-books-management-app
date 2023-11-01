@@ -7,4 +7,4 @@ if __name__ == "__main__":
     window = ListBookWindow()
     window.show()
 
-    app.exec_()
+    app.exec()
