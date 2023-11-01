@@ -3,18 +3,21 @@
 ################################################################################
 ## Form generated from reading UI file 'main_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+## Created by: Qt User Interface Compiler version 6.2.4
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
-    QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
-    QPixmap, QRadialGradient)
-from PySide2.QtWidgets import *
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QWidget)
 
 class ListBookForm(object):
     def setupUi(self, ListBookForm):
@@ -142,16 +145,23 @@ class ListBookForm(object):
         self.parameterLineEdit.setGeometry(QRect(240, 10, 411, 20))
         self.searchButton = QPushButton(self.frame)
         self.searchButton.setObjectName(u"searchButton")
-        self.searchButton.setGeometry(QRect(660, 10, 131, 25))
+        self.searchButton.setGeometry(QRect(660, 10, 81, 25))
         icon4 = QIcon()
         icon4.addFile(u"./assets/icons/search-icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.searchButton.setIcon(icon4)
         self.refreshButton = QPushButton(self.frame)
         self.refreshButton.setObjectName(u"refreshButton")
-        self.refreshButton.setGeometry(QRect(800, 10, 131, 25))
+        self.refreshButton.setGeometry(QRect(740, 10, 121, 25))
         icon5 = QIcon()
         icon5.addFile(u"./assets/icons/refresh-icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.refreshButton.setIcon(icon5)
+        self.export_button = QPushButton(self.frame)
+        self.export_button.setObjectName(u"export_button")
+        self.export_button.setGeometry(QRect(880, 10, 31, 25))
+        icon6 = QIcon()
+        icon6.addFile(u"./assets/icons/icons8-export-excel-96.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.export_button.setIcon(icon6)
+        self.export_button.setIconSize(QSize(26, 26))
         self.listBooksTable = QTableWidget(ListBookForm)
         self.listBooksTable.setObjectName(u"listBooksTable")
         self.listBooksTable.setGeometry(QRect(10, 160, 941, 341))
@@ -180,6 +190,7 @@ class ListBookForm(object):
         self.label_5.setText(QCoreApplication.translate("ListBookForm", u"buscar por:", None))
         self.searchButton.setText(QCoreApplication.translate("ListBookForm", u"BUSCAR", None))
         self.refreshButton.setText(QCoreApplication.translate("ListBookForm", u"ACTUALIZAR", None))
+        self.export_button.setText("")
         self.label_6.setText(QCoreApplication.translate("ListBookForm", u"<html><head/><body><p><span style=\" font-weight:600;\">cantidad de libros:</span></p></body></html>", None))
         self.booksQtyLabel.setText(QCoreApplication.translate("ListBookForm", u"#", None))
     # retranslateUi

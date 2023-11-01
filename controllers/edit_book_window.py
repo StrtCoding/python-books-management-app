@@ -1,10 +1,14 @@
-from PySide2.QtWidgets import QWidget, QFileDialog
-from PySide2.QtCore import Qt
-from views.edit_book_window import EditBookForm
-from db.books import select_book_by_id, update_book
 import re
 import os
 import shutil
+
+from PySide6.QtWidgets import QWidget, QFileDialog
+from PySide6.QtCore import Qt
+
+from views.edit_book_window import EditBookForm
+from db.books import select_book_by_id, update_book
+
+
 class EditBookWindow(QWidget, EditBookForm):
 
     def __init__(self, parent=None, _id=None):

@@ -1,7 +1,11 @@
-from PySide2.QtWidgets import QWidget, QTableWidgetItem, QAbstractItemView
+import os
+
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QAbstractItemView
+import pandas as pd
+
 from views.main_window import ListBookForm
 from db.books import select_all_books, select_book_by_title, select_book_by_category, delete_book
-import os
+
 
 class ListBookWindow(QWidget, ListBookForm):
 
@@ -18,9 +22,35 @@ class ListBookWindow(QWidget, ListBookForm):
         self.open_book_button.clicked.connect(self.open_book)
         self.searchButton.clicked.connect(self.search)
         self.delete_book_button.clicked.connect(self.remove_book)
+        self.export_button.clicked.connect(self.export_data)
     
+    def export_data(self):
+        column_headers = []
+
+        for index_col in range(self.listBooksTable.columnCount()):
+            column_name = self.listBooksTable.horizontalHeaderItem(index_col).text()
+            column_headers.append(column_name)
+        
+        df = pd.DataFrame(columns=column_headers)
+
+        for index_row in range(self.listBooksTable.rowCount()):
+            for index_col in range(self.listBooksTable.columnCount()):
+                df.at[index_row, column_headers[index_col]] = self.listBooksTable.item(index_row, index_col).text()
+
+        df = self.clean_df(df)
+        df.to_excel('pdfs_books.xlsx', index=False)
+    
+    def clean_df(self, df: pd.DataFrame):
+        df.drop('Libro ID', axis=1, inplace=True)
+        cols = ['Titulo', 'Categoria', 'Path', 'Descripcion']
+
+        for col in cols:
+            df[col] = df[col].str.strip()
+        
+        return df
+
     def refresh_table_from_child_window(self):
-        data = select_all_book()
+        data = select_all_books()
         self.populate_table(data)
         
     def add_new_book_row(self, data):
@@ -75,7 +105,8 @@ class ListBookWindow(QWidget, ListBookForm):
         self.records_qty()
 
     def table_config(self):
-        column_headers = ("Libro ID", "Titulo", "Categoria", "Cantidad de Paginas", "Cantidad de Paginas Leidas", "Path", "Descripcion")
+        column_headers = ("Libro ID", "Titulo", "Categoria", "Cantidad de Paginas",
+                          "Cantidad de Paginas Leidas", "Path", "Descripcion")
         self.listBooksTable.setColumnCount(len(column_headers))
         self.listBooksTable.setHorizontalHeaderLabels(column_headers)
 
@@ -83,6 +114,9 @@ class ListBookWindow(QWidget, ListBookForm):
 
 
     def populate_table(self, data):
+        if data is None:
+            data = []
+        
         self.listBooksTable.setRowCount(len(data))
 
         for (index_row, row) in enumerate(data):

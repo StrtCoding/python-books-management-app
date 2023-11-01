@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication
 from controllers.main_window import ListBookWindow
 
 
@@ -7,4 +7,4 @@ if __name__ == "__main__":
     window = ListBookWindow()
     window.show()
 
-    app.exec_()
+    app.exec()
